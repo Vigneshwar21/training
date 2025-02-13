@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React,{createContext, useContext}from 'react';
+const DataContext = createContext();
 
-//counter component
-
-const ThemeToggler=()=>{
-  const [theme,setTheme] = useState('light')
-
-  const toggleTheme = () =>{
-    setTheme(prevTheme=>(prevTheme === 'light' ? 'dark' : 'light'))
-  }
-
+function App(){
+  const data="Hello I am vigneshwar"
   return(
-    <div style={{backgroundColor:theme==='light'?'white':'green' , color:theme==='light'? 'black':'white' ,textAlign:'center'}}>
-      <h1>The Current theme is {theme}</h1>
-      <button onClick={toggleTheme}>toggleTheme</button>
-    </div>
+    <DataContext.Provider value={data}>
+<User1></User1>
+    </DataContext.Provider>
   )
-
 }
-export default ThemeToggler;
+// user1 compomnent
+function User1({data}){
+  return<User2 />
+}
+function User2({data}){
+  return<User3/>
+}
+function User3({data}){
+  return<User4 />
+}
+function User4(){
+  const data=useContext(DataContext)
+  return<div>{data}</div>
+}
+export default App;
