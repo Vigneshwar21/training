@@ -1,43 +1,22 @@
-import React, { createContext, useContext } from "react";
+import React,{use, useState} from "react";
 
+function App(){
+  const[isHovered, setIsHovered] = useState(false);
+  const handleMouseEnter=()=>{
+    setIsHovered(true);
+  }
+  const handleMouseLeave=()=>{
+    setIsHovered(false);
+  }
 
-const UserContext = createContext();
-
-function App() {
-  const user = {
-    name: "saicharan",
-    email: "charan@gmail.com"
-  };
-
-  return (
-    <UserContext.Provider value={user}>
-      <User1 />
-    </UserContext.Provider>
-  );
-}
-
-function User1() {
-  return <User2 />;
-}
-
-function User2() {
-  return <User3 />;
-}
-
-function User3() {
-  return <Profile />;
-}
-
-
-function Profile() {
-  const user = useContext(UserContext);
-  
-  return (
+  return(
     <div>
-     <p>Name: {user.name}</p>
-      <p>Email: {user.email}</p>
-    </div>
-  );
-}
+      <button onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
+      style={{backgroundColor:isHovered ? 'lightblue':'lightgray',color:isHovered ? 'white':'black'}}
+      >Hover</button>
 
+      {isHovered && <p>Mouse is over the button</p>}
+    </div>
+  )
+}
 export default App;
